@@ -1,0 +1,42 @@
+name: "MR Pipeline"
+
+on:
+  pull_request:
+
+jobs:
+  linting:
+    name: "Lint"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Golang
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.22.1"
+      # - name: Install dependencies
+      #   run: pip install --upgrade pip && pip install -r requirements-test.txt
+      - name: Linting
+        run: go fmt
+  # build:
+  #   name: "Build"
+  #   runs-on: ubuntu-latest
+  #   needs:
+  #     - linting
+  #   defaults:
+  #     run:
+  #       shell: bash
+  #   steps:
+  #     - name: Set up QEMU
+  #       uses: docker/setup-qemu-action@v3
+  #     - name: Set up Docker Buildx
+  #       uses: docker/setup-buildx-action@v3
+  #     - name: Checkout
+  #       uses: actions/checkout@v3
+  #     - uses: docker/build-push-action@v5
+  #       with:
+  #         context: .
+  #         platforms: linux/arm64
