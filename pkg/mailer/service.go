@@ -1,4 +1,4 @@
-package main
+package mailer
 
 import (
 	"bytes"
@@ -30,10 +30,11 @@ func SendEmail(payload ContactUsPayload) {
 	tpl, _ := template.ParseFiles("templates/contact_us.html")
 	tpl.Execute(&body, TemplateContext)
 
-	auth := smtp.PlainAuth("", conf.Sender, conf.Password, conf.Host)
+	auth := smtp.PlainAuth(conf.Identity, conf.Sender, conf.Password, conf.Host)
 	err = smtp.SendMail(conf.Host+":"+conf.Port, auth, conf.Sender, recipients, body.Bytes())
 	if err != nil {
 		return
 	}
+
 	fmt.Println("Email Sent!")
 }

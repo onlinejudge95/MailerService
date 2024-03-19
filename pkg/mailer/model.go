@@ -1,4 +1,4 @@
-package main
+package mailer
 
 type ContactUsPayload struct {
 	Name          string `json:"name" binding:"required"`
