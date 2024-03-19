@@ -6,12 +6,12 @@ COPY go.mod go.sum ./
 
 COPY . .
 
-RUN go build -tags jsoniter -o mailer
+RUN go build -tags jsoniter
 
 FROM public.ecr.aws/lambda/provided:al2023
 
 WORKDIR /code
 
-COPY --from=build /code/mailer ./mailer
+COPY --from=build /code/MailerService ./MailerService
 
-ENTRYPOINT [ "./mailer" ]
+ENTRYPOINT [ "./MailerService" ]
