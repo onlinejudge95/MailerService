@@ -17,8 +17,8 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: "1.22.1"
-      # - name: Install dependencies
-      #   run: pip install --upgrade pip && pip install -r requirements-test.txt
+      - name: Install dependencies
+        run: go mod tidy
       - name: Linting
         run: go fmt
   # build:
